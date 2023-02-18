@@ -1,0 +1,40 @@
+{% extends "base.html"%}
+{% load static %}
+
+{% block title %}
+
+This post title  
+{% endblock %}
+
+{% block css_files%}
+<link rel="stylesheet" href= "{% static "blog/post.css" %}"/>
+<link rel="stylesheet" href= "{% static "blog/onepost.css" %}"/>
+{% endblock %}
+
+
+{% block body %}
+<section id="summary">
+    <h2>Post Title</h2>
+    <article>
+        <img src="{% static "blog/images/mountains.jpg" %}" alt="post title">
+        <address>By Haninz</address>
+        <div>
+            last updated on <time> July 10th </time>
+        </div>
+    </article>
+</section>
+
+<main>
+    <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Obcaecati magni, illum rem quam ab veritatis optio necessitatibus sint laborum nihil ea nobis saepe quas voluptas vero, esse excepturi sequi voluptates.
+    </p>
+
+    <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Obcaecati magni, illum rem quam ab veritatis optio necessitatibus sint laborum nihil ea nobis saepe quas voluptas vero, esse excepturi sequi voluptates.
+    </p>
+
+    <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Obcaecati magni, illum rem quam ab veritatis optio necessitatibus sint laborum nihil ea nobis saepe quas voluptas vero, esse excepturi sequi voluptates.
+    </p>
+</main>
+{% endblock %}
