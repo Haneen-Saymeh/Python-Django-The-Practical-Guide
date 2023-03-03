@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from .models import *
 from django.views import View
 from django.views.generic.base import TemplateView
+from django.views.generic import ListView, DetailView
 
 # class based view
 class ReviewView(View):
@@ -41,22 +42,44 @@ class ThankYouView(TemplateView):
     template_name="rev/thank.html"
 
 
-class ReviewsListView(TemplateView):
-    template_name="rev/list.html"
 
-    def get_context_data(self, **kwargs):
-        context= super().get_context_data(**kwargs)
-        reviews=Review.objects.all()
-        context["reviews"]=reviews
-        return context
+# using template view
+# class ReviewsListView(TemplateView):
+#     template_name="rev/list.html"
+
+#     def get_context_data(self, **kwargs):
+#         context= super().get_context_data(**kwargs)
+#         reviews=Review.objects.all()
+#         context["reviews"]=reviews
+#         return context
     
-class ReviewSingleView(TemplateView):
+# using list view
+class ReviewsListView(ListView):
+    template_name="rev/list.html"
+    model =Review
+    context_object_name="reviews"
+    def get_queryset(self):
+        base_query= super().get_queryset()
+        data=base_query.filter(rating__gt=4)
+        return data
+    
+
+# using template view for single review 
+    
+# class ReviewSingleView(TemplateView):
+#     template_name="rev/one.html"
+
+#     def get_context_data(self, **kwargs):
+#         context= super().get_context_data(**kwargs)
+#         one_review=Review.objects.get(id=kwargs["id"])
+#         context["one"] =one_review
+#         return context
+    
+# using detailed view for single review
+
+class ReviewSingleView(DetailView):
     template_name="rev/one.html"
+    model=Review
 
-    def get_context_data(self, **kwargs):
-        context= super().get_context_data(**kwargs)
-        one_review=Review.objects.get(id=kwargs["id"])
-        context["one"] =one_review
-        return context
-
+    
     
