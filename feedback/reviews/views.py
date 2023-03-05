@@ -5,19 +5,43 @@ from .models import *
 from django.views import View
 from django.views.generic.base import TemplateView
 from django.views.generic import ListView, DetailView
+from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteView
 
-# class based view
-class ReviewView(View):
-    def get(self, request):
-        form=ReviewForm()
-        return render(request,"rev/rev.html",{"form":form})
+
+
+# class based view to create and submit form
+# class ReviewView(View):
+#     def get(self, request):
+#         form=ReviewForm()
+#         return render(request,"rev/rev.html",{"form":form})
     
-    def post(self, request):
-        form = ReviewForm(request.POST)
-        if form.is_valid:
-            form.save()
-            return render(request, "rev/thank.html")
-        return render(request,"rev/rev.html",{"form":form})
+#     def post(self, request):
+#         form = ReviewForm(request.POST)
+#         if form.is_valid:
+#             form.save()
+#             return render(request, "rev/thank.html")
+#         return render(request,"rev/rev.html",{"form":form})
+    
+# using form view to create and submit a form
+# class ReviewView(FormView):
+#     form_class= ReviewForm
+#     template_name="rev/rev.html"
+#     success_url="/reviews"
+    
+#     def form_valid(self, form) :
+#         form.save()
+#         return super().form_valid(form)
+    
+
+# using create view to create and submit a form
+# There is also update and delete views
+class ReviewView(CreateView):
+    model=Review
+    form_class=ReviewForm
+    template_name="rev/rev.html"
+    success_url="/reviews"
+    
+    
 
 
 
